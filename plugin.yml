@@ -1,0 +1,17 @@
+name: CompassTrackerMinecraft
+main: io.github.johnzhoudev.CompassTrackerMinecraft.Main
+version: 1.0
+author: OrangeFirefly
+commands:
+   givediamond:
+      description: Gives player 1 diamond
+      usage: /givediamond [player]
+   track:
+      description: Allows player compasses to track other players and blocks provided they have a compass
+      usage: /track [player or "block"]
+   reset:
+      description: Clears all player inventories and teleports players to spawn and resets portal locations
+      usage: /reset
+   start:
+      description: Starts timer for speedrunners.
+      usage: /start [time in seconds]
