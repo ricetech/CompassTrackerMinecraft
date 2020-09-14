@@ -3,9 +3,6 @@ main: io.github.johnzhoudev.CompassTrackerMinecraft.Main
 version: 1.0
 author: OrangeFirefly
 commands:
-   givediamond:
-      description: Gives player 1 diamond
-      usage: /givediamond [player]
    track:
       description: Allows player compasses to track other players and blocks provided they have a compass
       usage: /track [player or "block"]

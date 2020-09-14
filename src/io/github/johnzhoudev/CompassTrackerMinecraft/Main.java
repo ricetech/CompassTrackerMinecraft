@@ -33,7 +33,7 @@ public class Main extends JavaPlugin {
 	//These functions are run when the plugin is enabled and disabled
     @Override
     public void onEnable() {
-    	getLogger().info("TestPlugin has been enabled.");
+    	getLogger().info("CompassTrackerMinecraft has been enabled.");
     	
     	//Setup right click listener
     	getServer().getPluginManager().registerEvents(new MyListener(), this);
@@ -42,37 +42,12 @@ public class Main extends JavaPlugin {
     
     @Override
     public void onDisable() {
-    	getLogger().info("TestPlugin has been disabled.");
+    	getLogger().info("CompassTrackerMinecraft has been disabled.");
     }
     
     @Override
     // Sender may be Player or ConsoleCommandSender
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    	
-    	// Handle givediamond command
-    	if (cmd.getName().equalsIgnoreCase("givediamond")) {
-    		
-    		if (sender instanceof Player) {
-    			Player player = (Player) sender;
-    			givePlayerDiamonds(player);
-    			
-    		} else if (sender instanceof ConsoleCommandSender) {
-    			if (args.length == 0) {
-    				sender.sendMessage("/givediamond [player] requires a player to be supplied when run from the console");
-    				return false;
-    			}
-    			
-    			Player player = getServer().getPlayer(args[0]);
-    			
-    			// If player not found
-    			if (player == null) {
-    				sender.sendMessage("Player not found");
-    				return false;
-    			}
-    			givePlayerDiamonds(player);
-    		}
-    		return true;
-    	}
     	
     	// Handle reset command, clears all inventories and teleports players to spawn and resets portal locations
     	if (cmd.getName().equalsIgnoreCase("reset")) {
