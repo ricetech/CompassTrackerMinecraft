@@ -1,4 +1,4 @@
-<h1>CompassTrackerMinecraft (Spigot 1.16.2 server plugin)</h1>
+<h1>CompassTrackerMinecraft (Spigot 1.16.3 server plugin)</h1>
 
 Allows players to track each other in minecraft with lodestone compasses!
 Great for playing minecraft manhunt!
