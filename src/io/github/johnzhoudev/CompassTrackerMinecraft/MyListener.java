@@ -216,6 +216,10 @@ public class MyListener implements Listener {
 		// If in the nether, cancel event and trigger minor explosion
 		if (bedLocation.getWorld().getEnvironment() == World.Environment.NETHER) {
 			e.setCancelled(true);
+			
+			// Remove bed by changing it to air
+			e.getBed().setType(Material.AIR);
+			
 			bedLocation.getWorld().createExplosion(bedLocation, 2f, true, true);
 		}
 	}
