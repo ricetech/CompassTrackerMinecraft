@@ -221,6 +221,9 @@ public class MyListener implements Listener {
 			e.getBed().setType(Material.AIR);
 			
 			bedLocation.getWorld().createExplosion(bedLocation, 2f, true, true);
+			
+			// Set player on fire for 160 ticks = 8 seconds
+			e.getPlayer().setFireTicks(160);
 		}
 	}
 	
