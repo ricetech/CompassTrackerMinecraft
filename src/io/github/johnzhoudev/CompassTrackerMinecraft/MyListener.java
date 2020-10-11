@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
@@ -206,6 +207,17 @@ public class MyListener implements Listener {
 			player.addPotionEffect(fireResistance);
 		}
 		
+	}
+	
+	@EventHandler
+	public void onPlayerBedEvent(PlayerBedEnterEvent e) {
+		Location bedLocation = e.getBed().getLocation();
+		
+		// If in the nether, cancel event and trigger minor explosion
+		if (bedLocation.getWorld().getEnvironment() == World.Environment.NETHER) {
+			e.setCancelled(true);
+			bedLocation.getWorld().createExplosion(bedLocation, 2f, true, true);
+		}
 	}
 	
 	
