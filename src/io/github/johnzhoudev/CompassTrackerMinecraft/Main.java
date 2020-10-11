@@ -109,6 +109,10 @@ public class Main extends JavaPlugin {
     		}
     		
     		final int final_time = time;
+    		if (final_time < 0) {
+    			sender.sendMessage("Time must be greater than or equal to 0");
+    			return false;
+    		}
     		
 //    		Iterator<Player> playerIterator = listOfPlayers.iterator();
 //    		

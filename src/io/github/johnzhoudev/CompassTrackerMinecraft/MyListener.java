@@ -1,6 +1,7 @@
 package io.github.johnzhoudev.CompassTrackerMinecraft;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -53,9 +54,10 @@ public class MyListener implements Listener {
 		// Add player to list of players and compass status hashmap
 		Main.listOfPlayers.add(player);
 		Main.playerCompassStatus.put(player.getName(), null);
-		Main.portalLocations.put(player.getName(), null);
-		Main.portalLocationsNether.put(player.getName(), null);
 		
+		if (!Main.portalLocations.containsKey(player.getName())) { Main.portalLocations.put(player.getName(), null); }
+		if (!Main.portalLocationsNether.containsKey(player.getName())) { Main.portalLocationsNether.put(player.getName(), null); }
+				
 		Bukkit.getLogger().info(player.getName() + " has been added to list of players and compass status");
 	}
 	
@@ -80,8 +82,10 @@ public class MyListener implements Listener {
         Player player = event.getPlayer();
 		Main.listOfPlayers.remove(player);
 		Main.playerCompassStatus.remove(player.getName());
-		Main.portalLocations.remove(player.getName());
-		Main.portalLocationsNether.remove(player.getName());
+		
+		// Don't remove portal locations
+		// Main.portalLocations.remove(player.getName());
+		// Main.portalLocationsNether.remove(player.getName());
 		Bukkit.getLogger().info(player.getName() + " has been removed from list of players and compass status");
 		return;
     }
@@ -184,18 +188,28 @@ public class MyListener implements Listener {
 	
 	@EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent e){
+		Location origin = e.getFrom();
 		Location destination = e.getTo();
 		Player player = e.getPlayer();
 		
-		// if you teleported to the nether, set your portal location to your teleport location
+		// Do not add fire resistance if gamemode is anything but survival
+		if (player.getGameMode() != GameMode.SURVIVAL) {
+			return;
+		}
+		
+		// if you teleported to the nether from the overworld, set your portal location to your teleport location
 		// Also give you fire resistance for 30 seconds
-		if (destination.getWorld().getEnvironment() == World.Environment.NETHER) {
+		if ((destination.getWorld().getEnvironment() == World.Environment.NETHER) && 
+		   (origin.getWorld().getEnvironment() == World.Environment.NORMAL)) {
 			Main.portalLocationsNether.put(player.getName(), destination);
 			PotionEffect fireResistance = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 1); 
 			player.addPotionEffect(fireResistance);
 		}
 		
 	}
+	
+	
+	
 }
 
 
