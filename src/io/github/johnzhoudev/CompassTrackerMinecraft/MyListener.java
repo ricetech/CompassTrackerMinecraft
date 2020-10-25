@@ -55,8 +55,12 @@ public class MyListener implements Listener {
         // Add player to list of players and compass status hashmap
         Main.listOfPlayers.add(player);
         Main.playerCompassStatus.put(player.getName(), null);
-		if (!Main.portalLocations.containsKey(player.getName())) { Main.portalLocations.put(player.getName(), null); }
-		if (!Main.portalLocationsNether.containsKey(player.getName())) { Main.portalLocationsNether.put(player.getName(), null); }
+        if (!Main.portalLocations.containsKey(player.getName())) {
+            Main.portalLocations.put(player.getName(), null);
+        }
+        if (!Main.portalLocationsNether.containsKey(player.getName())) {
+            Main.portalLocationsNether.put(player.getName(), null);
+        }
 
         Bukkit.getLogger().info(player.getName() + " has been added to list of players and compass status");
     }
@@ -80,14 +84,14 @@ public class MyListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         // Called when a player leaves a server, removes player from list of players and hashmap
         Player player = event.getPlayer();
-		Main.listOfPlayers.remove(player);
-		Main.playerCompassStatus.remove(player.getName());
+        Main.listOfPlayers.remove(player);
+        Main.playerCompassStatus.remove(player.getName());
 
-		// Don't remove portal locations
-		// Main.portalLocations.remove(player.getName());
-		// Main.portalLocationsNether.remove(player.getName());
-		Bukkit.getLogger().info(player.getName() + " has been removed from list of players and compass status");
-		return;
+        // Don't remove portal locations
+        // Main.portalLocations.remove(player.getName());
+        // Main.portalLocationsNether.remove(player.getName());
+        Bukkit.getLogger().info(player.getName() + " has been removed from list of players and compass status");
+        return;
     }
 
     // Handles block mode right click, requires player to exist and the event to be a block click
@@ -189,44 +193,43 @@ public class MyListener implements Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent e) {
         Location origin = e.getFrom();
-		Location destination = e.getTo();
-		Player player = e.getPlayer();
+        Location destination = e.getTo();
+        Player player = e.getPlayer();
 
-		// Do not add fire resistance if gamemode is anything but survival
-		if (player.getGameMode() != GameMode.SURVIVAL) {
-			return;
-		}
+        // Do not add fire resistance if gamemode is anything but survival
+        if (player.getGameMode() != GameMode.SURVIVAL) {
+            return;
+        }
 
-		// if you teleported to the nether from the overworld, set your portal location to your teleport location
+        // if you teleported to the nether from the overworld, set your portal location to your teleport location
         // Also give you fire resistance for 30 seconds
         if ((destination.getWorld().getEnvironment() == World.Environment.NETHER) &&
-		   (origin.getWorld().getEnvironment() == World.Environment.NORMAL)) {
-			Main.portalLocationsNether.put(player.getName(), destination);
-			PotionEffect fireResistance = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 1);
-			player.addPotionEffect(fireResistance);
-		}
+                (origin.getWorld().getEnvironment() == World.Environment.NORMAL)) {
+            Main.portalLocationsNether.put(player.getName(), destination);
+            PotionEffect fireResistance = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 1);
+            player.addPotionEffect(fireResistance);
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onPlayerBedEvent(PlayerBedEnterEvent e) {
-		Location bedLocation = e.getBed().getLocation();
+    @EventHandler
+    public void onPlayerBedEvent(PlayerBedEnterEvent e) {
+        Location bedLocation = e.getBed().getLocation();
 
-		// If in the nether, cancel event and trigger minor explosion
-		if (bedLocation.getWorld().getEnvironment() == World.Environment.NETHER) {
-			e.setCancelled(true);
+        // If in the nether, cancel event and trigger minor explosion
+        if (bedLocation.getWorld().getEnvironment() == World.Environment.NETHER) {
+            e.setCancelled(true);
 
-			// Remove bed by changing it to air
-			e.getBed().setType(Material.AIR);
+            // Remove bed by changing it to air
+            e.getBed().setType(Material.AIR);
 
-			bedLocation.getWorld().createExplosion(bedLocation, 2f, true, true);
+            bedLocation.getWorld().createExplosion(bedLocation, 2f, true, true);
 
-			// Set player on fire for 160 ticks = 8 seconds and damage 3 hearts of health
-			e.getPlayer().damage(6);
-			e.getPlayer().setFireTicks(200);
-		}
-	}
-
+            // Set player on fire for 160 ticks = 8 seconds and damage 3 hearts of health
+            e.getPlayer().damage(6);
+            e.getPlayer().setFireTicks(200);
+        }
+    }
 
 
 }
