@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class StartCommand implements CommandExecutor {
     private final JavaPlugin plugin;
@@ -40,17 +40,24 @@ public class StartCommand implements CommandExecutor {
 //    		}
 
         Bukkit.broadcastMessage("Started Speedrunner Countdown");
-        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 
-        scheduler.runTaskTimer(plugin, new Runnable() {
+        new CountdownTask(final_time).runTaskTimer(plugin, 0L, 20L);
 
-            int count_time = final_time;
+        return true;
+    }
 
-            @Override
-            public void run() {
+    private static class CountdownTask extends BukkitRunnable {
 
-                if (count_time == 0) {
-                    Bukkit.broadcastMessage("Manhunt Begins");
+        private int count_time;
+
+        public CountdownTask(int count_time) {
+            this.count_time = count_time;
+        }
+
+        @Override
+        public void run() {
+            if (count_time == 0) {
+                Bukkit.broadcastMessage("Manhunt Begins");
 
 //                		Iterator<Player> playerIterator = listOfPlayers.iterator();
 //
@@ -60,24 +67,19 @@ public class StartCommand implements CommandExecutor {
 //                			player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 //                		}
 //
-                    plugin.getServer().getScheduler().cancelTasks(plugin);
+                this.cancel();
 //
-                } else if (count_time == 45) {
-                    Bukkit.broadcastMessage("45 seconds remain");
-                } else if ((count_time % 30) == 0) {
-                    Bukkit.broadcastMessage(count_time + " seconds remain");
-                } else if (count_time == 15) {
-                    Bukkit.broadcastMessage("15 seconds remain");
-                } else if (count_time < 11) {
-                    Bukkit.broadcastMessage(count_time + " seconds remain");
-                }
-
-                count_time--;
-
+            } else if (count_time == 45) {
+                Bukkit.broadcastMessage("45 seconds remain");
+            } else if ((count_time % 30) == 0) {
+                Bukkit.broadcastMessage(count_time + " seconds remain");
+            } else if (count_time == 15) {
+                Bukkit.broadcastMessage("15 seconds remain");
+            } else if (count_time < 11) {
+                Bukkit.broadcastMessage(count_time + " seconds remain");
             }
 
-        }, 0L, 20L);
-
-        return true;
+            count_time--;
+        }
     }
 }
