@@ -6,3 +6,5 @@
 .project
 # IntelliJ
 /.idea/
+# Dependencies
+/lib/
