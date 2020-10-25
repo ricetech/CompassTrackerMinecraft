@@ -1,0 +1,8 @@
+# Output
+/bin/
+/out/
+# Eclipse
+/.settings/
+.project
+# IntelliJ
+/.idea/
