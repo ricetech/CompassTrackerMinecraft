@@ -96,7 +96,7 @@ public class MyListener implements Listener {
 
         Main.trackLocation(player, blockLocation);
 
-        player.sendMessage("Tracking: " + block.getType() + " at (X,Y,Z): " + Integer.toString(block.getX()) + " " + Integer.toString(block.getY()) + " " + Integer.toString(block.getZ()));
+        player.sendMessage("Tracking: " + block.getType() + " at (X,Y,Z): " + block.getX() + " " + block.getY() + " " + block.getZ());
 
         return;
     }

@@ -149,11 +149,11 @@ public class Main extends JavaPlugin {
                     } else if (count_time == 45) {
                         Bukkit.broadcastMessage("45 seconds remain");
                     } else if ((count_time % 30) == 0) {
-                        Bukkit.broadcastMessage(Integer.toString(count_time) + " seconds remain");
+                        Bukkit.broadcastMessage(count_time + " seconds remain");
                     } else if (count_time == 15) {
                         Bukkit.broadcastMessage("15 seconds remain");
                     } else if (count_time < 11) {
-                        Bukkit.broadcastMessage(Integer.toString(count_time) + " seconds remain");
+                        Bukkit.broadcastMessage(count_time + " seconds remain");
                     }
 
                     count_time--;
@@ -308,7 +308,7 @@ public class Main extends JavaPlugin {
 
                     trackLocation(player, portalLocation);
 
-                    player.sendMessage("Tracking: " + target.getName() + " | Y: " + Integer.toString(portalLocation.getBlockY()));
+                    player.sendMessage("Tracking: " + target.getName() + " | Y: " + portalLocation.getBlockY());
 
                     //else player is in nether, tracks nether portal of opponent or your own if they haven't been to nether yet
                 } else {
@@ -328,7 +328,7 @@ public class Main extends JavaPlugin {
 
                     trackLocation(player, portalLocation);
 
-                    player.sendMessage("Tracking: " + target.getName() + " | Y: " + Integer.toString(portalLocation.getBlockY()));
+                    player.sendMessage("Tracking: " + target.getName() + " | Y: " + portalLocation.getBlockY());
 
                 }
 
@@ -342,7 +342,7 @@ public class Main extends JavaPlugin {
 
             trackLocation(player, targetLocation);
 
-            player.sendMessage("Tracking: " + target.getName() + " | Y: " + Integer.toString(targetLocation.getBlockY()));
+            player.sendMessage("Tracking: " + target.getName() + " | Y: " + targetLocation.getBlockY());
 
             playerCompassStatus.put(player.getName(), target.getName());
 
