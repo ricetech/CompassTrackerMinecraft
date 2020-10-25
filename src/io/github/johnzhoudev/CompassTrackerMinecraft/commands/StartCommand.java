@@ -56,7 +56,7 @@ public class StartCommand implements CommandExecutor {
 
         @Override
         public void run() {
-            if (count_time == 0) {
+            if (count_time <= 0) {
                 Bukkit.broadcastMessage("Manhunt Begins");
 
 //                		Iterator<Player> playerIterator = listOfPlayers.iterator();
